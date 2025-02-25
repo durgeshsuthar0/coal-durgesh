@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Form,
   Button,
-  Container,
   Row,
   Col,
   Alert,
@@ -34,13 +33,15 @@ export const LoginSec = () => {
   };
 
   const handleSubmit = async (e) => {
-    
-  
+    e.preventDefault();
+    setValidated(true);
     setIsLoading(true);
-    // Check if email and password match "admin"
+    setError("");
+    setSuccess("");
+
     if (email === "admin" && password === "admin") {
       setSuccess("Login successful!");
-  
+
       if (rememberMe) {
         Cookies.set("email", email, { expires: 30 });
         Cookies.set("password", password, { expires: 30 });
@@ -48,33 +49,32 @@ export const LoginSec = () => {
         Cookies.remove("email");
         Cookies.remove("password");
       }
-  
-      // Simulate navigation after login
+
       setTimeout(() => {
         setIsLoading(false);
-        navigate("pages/dashboard");
+        navigate("/pages/dashboard");
       }, 2000);
     } else {
+      setIsLoading(false);
       setError("Invalid email or password. Please try again.");
     }
   };
-  
+
   return (
     <React.Fragment>
-       {isLoading && (
+      {isLoading && (
         <div className="loader-wrapper d-flex justify-content-center align-items-center">
           <Loader />
         </div>
       )}
       <div className="auth-box text-start h-100vh">
         <Row className="justify-content-md-center mx-auto auth-row">
-          <Col lg={6} className="p-0  d-lg-block position-relative">
+          <Col lg={6} className="p-0 d-lg-block position-relative">
             <div className="content-wrapper">
               <div className="auth-left-content text-white">
                 <h3 className="mb-2">Coal Yard Management System</h3>
                 <p className="d-none d-lg-block mt-3 auth-description">
-                  Streamline coal yard operations and improve resource
-                  management with our comprehensive platform.
+                  Streamline coal yard operations and improve resource management with our comprehensive platform.
                 </p>
               </div>
             </div>
@@ -84,9 +84,7 @@ export const LoginSec = () => {
               <div className="main-form">
                 <div className="section-title">
                   <h2 className="mt-3 text-black">Login</h2>
-                  <p className="text-light mb-0">
-                    Access your coal yard management account
-                  </p>
+                  <p className="text-light mb-0">Access your coal yard management account</p>
                 </div>
                 {error && <Alert variant="danger">{error}</Alert>}
                 {success && <Alert variant="success">{success}</Alert>}
@@ -94,13 +92,9 @@ export const LoginSec = () => {
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label className="fw-bold">Email address</Form.Label>
                     <div className="field-set position-relative">
-                      <span
-                        className="input-icon position-absolute"
-                        onClick={togglePasswordVisibility}
-                      >
-                        <FontAwesomeIcon className="" icon={faEnvelope} />
+                      <span className="input-icon position-absolute">
+                        <FontAwesomeIcon icon={faEnvelope} />
                       </span>
-
                       <Form.Control
                         type="email"
                         placeholder="Enter Email"
@@ -109,23 +103,13 @@ export const LoginSec = () => {
                         required
                         className="rounded-lg"
                       />
-
                     </div>
-
                   </Form.Group>
 
-                  <Form.Group
-                    controlId="formBasicPassword"
-                    className="mt-3 position-relative"
-                  >
+                  <Form.Group controlId="formBasicPassword" className="mt-3 position-relative">
                     <Form.Label className="fw-bold">Password</Form.Label>
-
                     <div className="field-set position-relative">
-                      <span
-                        className="input-icon position-absolute"
-                        onClick={togglePasswordVisibility}
-
-                      >
+                      <span className="input-icon position-absolute">
                         <FontAwesomeIcon icon={faLock} />
                       </span>
                       <Form.Control
@@ -136,29 +120,19 @@ export const LoginSec = () => {
                         required
                         className="rounded-lg"
                       />
-                      <span
-                        className="show-hide-icon position-absolute"
-                        onClick={togglePasswordVisibility}
-
-                      >
-                        <FontAwesomeIcon
-                          icon={showPassword ? faEyeSlash : faEye}
-                        />
+                      <span className="show-hide-icon position-absolute" onClick={togglePasswordVisibility}>
+                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                       </span>
                     </div>
                   </Form.Group>
 
                   <div className="d-flex justify-content-between align-items-center mt-4">
-                    <Button
-
-                      type="submit"
-                      className="btn-primary"
-                    >
+                    <Button type="submit" className="btn-primary">
                       Login
                     </Button>
-                    <a><Link to="/forgot-password" className="text-orange">
+                    <Link to="/forgot-password" className="text-orange">
                       Forgot Password?
-                    </Link></a>
+                    </Link>
                   </div>
                 </Form>
               </div>
