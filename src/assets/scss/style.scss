@@ -152,6 +152,9 @@ body {
 .rotating-loader {
   animation: rotate 0.6s linear infinite;
   width: 5%;
+  @media screen and (max-width: 767px) {
+    width: 15%;
+  }
 }
 
 @keyframes rotate {
@@ -242,9 +245,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 767px) {
+    display: block;
+  }
   .title-text {
     position: relative;
     padding-left: 10px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 15px;
+    }
     ::before {
       position: absolute;
       content: "";
@@ -814,8 +823,10 @@ body {
   }
 }
 .header-select {
-  background-color: #f7f7f9;
+  background-color: $bg-black;
   padding-top: 10px;
+  border-radius: 0;
+  margin-top: 10px;
 
   .custom-select {
     line-height: 10px;
@@ -853,6 +864,9 @@ body {
   transition: all 0.3s;
   box-shadow: 0px 0px 10px 0px rgb(231, 235, 241);
   transition: 0.2s;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
   .head {
     height: 45px;
     color: $text-white;
@@ -886,7 +900,7 @@ body {
 
     @media screen and (max-width: 767px) {
       right: 15px;
-      color: $text-white;
+      color: $text-black;
     }
 
     svg {
@@ -1593,6 +1607,19 @@ body {
       box-shadow: none;
     }
   }
+  .col-set {
+    .col {
+      @media screen and (max-width: 767px) {
+        flex: auto;
+        margin-bottom: 8px;
+      }
+      .custom-select {
+        @media screen and (max-width: 767px) {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 //------ Form Wrap CSS End
 
@@ -1689,6 +1716,9 @@ body {
 // ----- No Data Found CSS Start
 .noData-Img {
   width: 250px;
+  @media screen and (max-width: 767px) {
+    margin-left: 0 !important;
+  }
 }
 // ----- No Data Found CSS End
 
@@ -1789,7 +1819,7 @@ body {
     .react-calendar__navigation {
       height: auto;
 
-      padding: 10px;
+      padding: 0;
     }
 
     .react-calendar__navigation__label {
@@ -1861,7 +1891,7 @@ body {
     }
 
     .react-calendar__viewContainer {
-      overflow: scroll;
+      overflow: auto;
 
       .react-calendar__month-view {
         @media screen and (max-width: 767px) {
@@ -1875,6 +1905,12 @@ body {
     }
 
     .react-calendar__month-view__days {
+      .react-calendar__month-view__days__day--neighboringMonth.weekend-date {
+        opacity: 0.5;
+      }
+      .react-calendar__month-view__days__day--neighboringMonth.regular-date {
+        opacity: 0.5;
+      }
       .react-calendar__tile {
         padding: 0px;
         border: 0.1px solid $bg-grey-light;
@@ -1985,24 +2021,37 @@ body {
 /* ShiftScheduleBoardSec.css */
 
 .employee-shift-main {
-  .right-content {
-    @media screen and (max-width: 991px) {
-      display: flex !important;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 20px;
+  .search-container {
+    position: relative;
+    svg {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    input {
+      padding-right: 35px;
     }
   }
   .shift-table-container {
     overflow: hidden;
     overflow-x: auto;
+    overflow-y: auto;
+    height: 50vh;
+    border-radius: 0;
     .shift-schedule-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
       border: 1px solid #e5e7eb;
-      background-color: white;
+      background-color: $bg-white;
+      thead {
+        tr {
+          position: sticky;
+          top: 0;
+          background-color: $bg-white;
+        }
+      }
       .sticky-header {
         // align-items: center;
         // gap: 10px;
@@ -2012,10 +2061,13 @@ body {
         // background-color: white;
         // z-index: 2;
         border-bottom: 1px solid #e5e7eb;
-        padding: 1rem;
+        padding: 5px;
         text-align: center;
         .date {
-          font-size: 35px;
+          font-size: 30px;
+          @media screen and (max-width: 767px) {
+            font-size: 20px;
+          }
         }
       }
       .sticky-column {

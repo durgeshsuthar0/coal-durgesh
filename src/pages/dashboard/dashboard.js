@@ -8,16 +8,16 @@ import {
   FaCog,
 } from "react-icons/fa"; // Importing relevant icons
 import { IoMdTime } from "react-icons/io";
-import CanvasJSReact from "@canvasjs/react-charts";
 import React from "react";
 import { useSelector } from "react-redux";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { ProgressBar, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Loader from "../../components/loadSpinner/loader";
+import { Chart } from "primereact/chart";
 
 
 export const DashboardSec = ({ isToggled }) => {
-  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+  
   const yardId = useSelector((state) => state.auth.selectedYardId);
 
   const machines = [{ id: 1, name: "Machine A", efficiency: 30 }];
@@ -75,6 +75,99 @@ export const DashboardSec = ({ isToggled }) => {
     entryByRail: 300,
     entryByRoad: 600,
   };
+
+  const chartData = {
+    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    datasets: [
+      {
+        label: 'Coal Imported (tons)',
+        backgroundColor: '#ea5b08',
+        data: [120, 150, 180, 90, 70, 110, 130],
+      },
+      {
+        label: 'Coal Exported (tons)',
+        backgroundColor: '#0089e7',
+        data: [100, 140, 160, 80, 60, 90, 120],
+      },
+    ],
+  };
+  
+  const chartOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          color: '#495057',
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: '#495057',
+        },
+        grid: {
+          color: '#ebedef',
+        },
+      },
+      y: {
+        ticks: {
+          color: '#495057',
+        },
+        grid: {
+          color: '#ebedef',
+        },
+      },
+    },
+  };
+  
+  const lineStylesData = {
+    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    datasets: [
+      {
+        label: 'Coal Imported (tons)',
+        data: [120, 150, 180, 90, 70, 110, 130],
+        fill: false,
+        borderColor: '#ea5b08',
+        tension: 0.4,
+      },
+      {
+        label: 'Coal Exported (tons)',
+        data: [100, 140, 160, 80, 60, 90, 120],
+        fill: false,
+        borderColor: '#0089e7',
+        tension: 0.4,
+      },
+    ],
+  };
+  
+  const basicOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          color: '#495057',
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: '#495057',
+        },
+        grid: {
+          color: '#ebedef',
+        },
+      },
+      y: {
+        ticks: {
+          color: '#495057',
+        },
+        grid: {
+          color: '#ebedef',
+        },
+      },
+    },
+  };
+  
 
   return (
     <React.Fragment>      
@@ -278,143 +371,24 @@ export const DashboardSec = ({ isToggled }) => {
             </Col>
           </Row>
 
-          {/* <Row className="mb-4">
-
-              <Col xl={2} lg={3} md={4} sm={6}>
-                <Card
-                  className="stat-card mb-3 hover-card shadow-lg text-center"
-                  style={{ backgroundColor: "#f8d7da" }}
-                >
-                  <Card.Body>
-                    <FaIndustry
-                      size={40}
-                      className="mb-2"
-                      style={{ color: "#721c24" }}
-                    />
-                    <Card.Title>
-                      {containerData.totalEntryContainers}
-                    </Card.Title>
-                    <Card.Text>Online Machine Count</Card.Text>
-                    <FaArrowUp size={20} style={{ color: "green" }} />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xl={2} lg={3} md={4} sm={6}>
-                <Card
-                  className="stat-card mb-3 hover-card shadow-lg text-center"
-                  style={{ backgroundColor: "#d1ecf1" }}
-                >
-                  <Card.Body>
-                    <FaTools
-                      size={40}
-                      className="mb-2"
-                      style={{ color: "#0c5460" }}
-                    />
-                    <Card.Title>{containerData.entryByRail}</Card.Title>
-                    <Card.Text>Maintenance Machine Count</Card.Text>
-                    <FaArrowDown size={20} style={{ color: "red" }} />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xl={2} lg={3} md={4} sm={6}>
-                <Card
-                  className="stat-card mb-3 hover-card shadow-lg text-center"
-                  style={{ backgroundColor: "#fff3cd" }}
-                >
-                  <Card.Body>
-                    <FaTruck
-                      size={40}
-                      className="mb-2"
-                      style={{ color: "#856404" }}
-                    />
-                    <Card.Title>{containerData.entryByRoad}</Card.Title>
-                    <Card.Text>Total Operators</Card.Text>
-                    <FaArrowUp size={20} style={{ color: "green" }} />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xl={2} lg={3} md={4} sm={6}>
-                <Card
-                  className="stat-card mb-3 hover-card shadow-lg text-center"
-                  style={{ backgroundColor: "#d4edda" }}
-                >
-                  <Card.Body>
-                    <FaUsers
-                      size={40}
-                      className="mb-2"
-                      style={{ color: "#155724" }}
-                    />
-                    <Card.Title>{containerData.entryByRoad}</Card.Title>
-                    <Card.Text>Online Operators</Card.Text>
-                    <FaArrowUp size={20} style={{ color: "green" }} />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xl={2} lg={3} md={4} sm={6}>
-                <Card
-                  className="stat-card mb-3 hover-card shadow-lg text-center"
-                  style={{ backgroundColor: "#f8d7da" }}
-                >
-                  <Card.Body>
-                    <FaGasPump
-                      size={40}
-                      className="mb-2"
-                      style={{ color: "#721c24" }}
-                    />
-                    <Card.Title>{containerData.entryByRoad}</Card.Title>
-                    <Card.Text>Fuel Consumption</Card.Text>
-                    <FaArrowDown size={20} style={{ color: "red" }} />
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col xl={2} lg={3} md={4} sm={6}>
-                <Card
-                  className="stat-card mb-3 hover-card shadow-lg text-center"
-                  style={{ backgroundColor: "#d1ecf1" }}
-                >
-                  <Card.Body>
-                    <FaCog
-                      size={40}
-                      className="mb-2"
-                      style={{ color: "#0c5460" }}
-                    />
-                    <Card.Title>{containerData.entryByRoad}</Card.Title>
-                    <Card.Text>Machine Efficiency</Card.Text>
-                    <FaArrowUp size={20} style={{ color: "green" }} />
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row> */}
-
-          {/* <Row>
-              <Col xl={6} md={6} sm={12} className="mb-3">
-                <Card className="piechart-card hover-card shadow-lg card-with-line-background">
-                  <div className="chart-title text-start d-flex justify-content-between">
-                    <h2>Area Wise Containers</h2>
-                    <p className="mb-0 fw-medium">
-                      Total Containers :{" "}
-                      <span className="text-primary ms-1">1580</span>
-                    </p>
-                  </div>
-                  <div className="chart-container">
-                    <CanvasJSChart options={options} />
-                  </div>
-                </Card>
-              </Col>
-              <Col xl={6} md={6} sm={12}>
-                <Card className="piechart-card hover-card shadow-lg card-with-line-background">
-                  <div className="chart-title text-start d-flex justify-content-between">
-                    <h2>Area Wise Occupied Space</h2>
-                    <p className="mb-0 fw-medium">
-                      Total Areas: <span className="text-primary ms-1">07</span>
-                    </p>
-                  </div>
-                  <div className="chart-container">
-                    <CanvasJSChart options={options1} />
-                  </div>
-                </Card>
-              </Col>
-            </Row> */}
+          <Row>
+            <Col lg={6} md={4} sm={12}>
+              <div className="card">
+                <Chart type="bar" data={chartData} options={chartOptions} />
+              </div>
+            </Col>
+            <Col lg={6} md={4} sm={12}>
+              <div className="card">
+                <h5>Coal Imported & Exported (Last 7 Days)</h5>
+                <Chart
+                  type="line"
+                  data={lineStylesData}
+                  options={basicOptions}
+                />
+              </div>
+            </Col>
+          </Row>
+          
         </Container>
       </div>
     </React.Fragment>
