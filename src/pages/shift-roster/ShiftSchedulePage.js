@@ -403,7 +403,7 @@ export const ShiftSchedulePageSec = ({
               {weeks.length > 0 && (
                 <>
                   <div className="form-wrap">
-                    <h5 className="text-center mb-0 fs-5 fw-bold bg-yellow text-black py-2 rounded-3">
+                    <h5 className="text-center mb-0 fs-5 fw-bold bg-orenge text-white py-2 rounded-3">
                       Week : {weeks[currentWeek].weekStart} to{" "}
                       {weeks[currentWeek].weekEnd}
                     </h5>

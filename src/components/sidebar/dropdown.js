@@ -1,5 +1,4 @@
 import React from "react";
-import { CaretDown } from "@phosphor-icons/react";
 import { MdChevronRight } from "react-icons/md";
 import { Link } from "react-router-dom";
 
@@ -7,12 +6,11 @@ const Dropdown = ({
   index,
   activeMenu,
   handleMenuClick,
-  icon: Icon,
   title,
+  iconName,  // Accept iconName prop
   subItems,
   handleHideClick,
 }) => {
-
   const isActive = activeMenu === index;
 
   return (
@@ -24,7 +22,6 @@ const Dropdown = ({
           handleMenuClick(index);
         }}
       >
-        <Icon size={20} />
         <span className="text">{title}</span>
         <MdChevronRight size={20} className="arrow" />
       </a>
@@ -44,7 +41,7 @@ const Dropdown = ({
                   index={item.id}
                   activeMenu={activeMenu}
                   handleMenuClick={handleMenuClick}
-                  icon={Icon}
+                  iconName={item.iconName}  // Pass the correct iconName
                   title={item.name}
                   handleHideClick={handleHideClick}
                   subItems={item.submenus}
@@ -57,6 +54,5 @@ const Dropdown = ({
     </li>
   );
 };
-
 
 export default Dropdown;

@@ -1,7 +1,7 @@
 import React from "react";
 // import { Spinner } from "react-bootstrap";
 // import PulseLoader from "react-spinners/PulseLoader";
-import loaderimg from "../../assets/images/tyreLoader.png"
+import loaderimg from "../../assets/images/loader.png"
  
 function Loader() {
   return (
